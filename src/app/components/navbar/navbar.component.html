@@ -121,7 +121,7 @@
 <div class="container-fluid navlinks-container">
   <div class="row navlinks-row">
     <div class="logo">
-      <p>NovelCoffee</p>
+      <p>Novel Coffee</p>
     </div>
     <div class="navlinks">
       <ul class="navlinks-ul">
@@ -132,4 +132,56 @@
       </ul>
     </div>
   </div>
+</div>
+<div class="container-fluid mobile-navlinks-container">
+  <div class="row">
+    <div class="logo">
+      <p>Novel Coffee</p>
+    </div>
+    <div class="bar-toggler" (click)="toggleMenu()">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        strokeWidth="{1.5}"
+        stroke="currentColor"
+        className="size-6"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M3.75 6.75h16.5M3.75 12h16.5M12 17.25h8.25"
+        />
+      </svg>
+    </div>
+  </div>
+</div>
+
+<div
+  class="mobile-menu-links"
+  *ngIf="menuOpen"
+  [ngClass]="{ open: menuOpen, closing: menuClosing }"
+>
+  <div class="bar-close-toggler" (click)="toggleMenu()">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+      strokeWidth="{1.5}"
+      stroke="currentColor"
+      className="size-6"
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M6 18 18 6M6 6l12 12"
+      />
+    </svg>
+  </div>
+  <ul class="navlinks-ul" style="margin-top: 60px">
+    <li (click)="navigateTo('home')">Home</li>
+    <li (click)="navigateTo('about')">About</li>
+    <li (click)="navigateTo('services')">Services</li>
+    <li (click)="navigateTo('contact')">Contact</li>
+  </ul>
 </div>

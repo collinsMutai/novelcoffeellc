@@ -50,18 +50,16 @@ export class HeroSliderComponent implements OnInit, OnDestroy {
   moveSlide(direction: number) {
     this.currentSlide =
       (this.currentSlide + direction + this.slides.length) % this.slides.length;
-    this.resetAnimations(); // Reset animations on slide change
+    this.resetAnimations();
   }
 
   startAutoSlide() {
     this.slideInterval = setInterval(() => {
-      this.moveSlide(1); // Automatically move to the next slide
-    }, 3000); // Change slide every 3 seconds
+      this.moveSlide(1);
+    }, 3000);
   }
 
-  // Function to reset animations on the current slide
   resetAnimations() {
-    // Get the title and caption of the current slide
     const title = document.querySelector(
       '.hero-slide.active .title'
     ) as HTMLElement;
@@ -69,16 +67,15 @@ export class HeroSliderComponent implements OnInit, OnDestroy {
       '.hero-slide.active .caption'
     ) as HTMLElement;
 
-    // Remove and reapply the 'animate' class to trigger the animation
     if (title) {
       title.classList.remove('animate');
-      void title.offsetWidth; // Trigger reflow to reset the animation
+      void title.offsetWidth;
       title.classList.add('animate');
     }
 
     if (caption) {
       caption.classList.remove('animate');
-      void caption.offsetWidth; // Trigger reflow to reset the animation
+      void caption.offsetWidth;
       caption.classList.add('animate');
     }
   }

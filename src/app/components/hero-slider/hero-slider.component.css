@@ -88,6 +88,7 @@
   transform: translateY(0);
 }
 
+/* Keyframe for fade-in effect */
 @keyframes fadeInUp {
   0% {
     opacity: 0;
@@ -99,6 +100,7 @@
   }
 }
 
+/* Adding the same animation to the prev and next buttons */
 .hero-slider .prev,
 .hero-slider .next {
   position: absolute;
@@ -110,6 +112,9 @@
   padding: 10px;
   cursor: pointer;
   z-index: 1;
+  opacity: 0; /* Initially hidden */
+  transform: translateY(20px); /* Start position */
+  animation: fadeInUp 1s ease forwards; /* Apply fade-in animation */
 }
 
 .hero-slider .prev {
@@ -120,6 +125,7 @@
   right: 10px;
 }
 
+/* Media queries for responsive behavior */
 @media screen and (max-width: 475px) {
   .hero-slide .overlay {
     width: 100%;
