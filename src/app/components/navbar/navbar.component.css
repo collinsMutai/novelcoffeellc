@@ -157,34 +157,29 @@
   stroke-width: 3;
 }
 
-
-
 @keyframes slideInFromRight {
   0% {
-    transform: translateX(100%); 
+    transform: translateX(100%);
   }
   100% {
-    transform: translateX(0); 
+    transform: translateX(0);
   }
 }
-
 
 @keyframes slideOutToRight {
   0% {
-    transform: translateX(0); 
+    transform: translateX(0);
   }
   100% {
-    transform: translateX(100%); 
+    transform: translateX(100%);
   }
 }
 
-
 .mobile-menu-links.open {
-  right: 0; 
-  display: block; 
-  animation: slideInFromRight 0.5s ease-in-out forwards; 
+  right: 0;
+  display: block;
+  animation: slideInFromRight 0.5s ease-in-out forwards;
 }
-
 
 .mobile-menu-links.closing {
   animation: slideOutToRight 0.5s ease-in-out forwards;

@@ -78,6 +78,49 @@
   left: 80px;
 }
 
+.btns {
+  position: relative;
+  top: 150px;
+  left: 80px;
+  padding: 20px 0px;
+  display: flex;
+  align-items: center;
+  opacity: 0; /* Initially hidden */
+  transform: translateY(20px); /* Positioned slightly below */
+  transition: opacity 1s ease 0.7s, transform 1s ease 0.7s; /* Delay the button animation */
+}
+
+@keyframes hoverEffect {
+  0% {
+    transform: scale(1);
+    background-color: rgba(111, 79, 40, 0.7);
+    color: initial;
+  }
+  100% {
+    transform: scale(1.1);
+    background-color: rgba(111, 79, 40, 0.8);
+    color: white;
+  }
+}
+
+.about-us-btn {
+  padding: 15px 25px;
+  font-size: 15px;
+  font-weight: 600;
+  text-transform: uppercase;
+  border-radius: 5px;
+  cursor: pointer;
+  outline: none;
+  border: none;
+  display: inline-block;
+  margin-right: 20px;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.about-us-btn:hover {
+  animation: hoverEffect 0.3s forwards;
+}
+
 .hero-slide.active .title {
   opacity: 1;
   transform: translateY(0);
@@ -88,7 +131,11 @@
   transform: translateY(0);
 }
 
-/* Keyframe for fade-in effect */
+.hero-slide.active .btns {
+  opacity: 1; /* Fade in when the slide becomes active */
+  transform: translateY(0); /* Slide up to original position */
+}
+
 @keyframes fadeInUp {
   0% {
     opacity: 0;
@@ -100,7 +147,6 @@
   }
 }
 
-/* Adding the same animation to the prev and next buttons */
 .hero-slider .prev,
 .hero-slider .next {
   position: absolute;
@@ -112,9 +158,9 @@
   padding: 10px;
   cursor: pointer;
   z-index: 1;
-  opacity: 0; /* Initially hidden */
-  transform: translateY(20px); /* Start position */
-  animation: fadeInUp 1s ease forwards; /* Apply fade-in animation */
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 1s ease forwards;
 }
 
 .hero-slider .prev {
@@ -125,7 +171,58 @@
   right: 10px;
 }
 
-/* Media queries for responsive behavior */
+.call-us {
+  display: flex;
+  align-items: center;
+}
+
+.call-us svg {
+  width: 50px;
+  height: 50px;
+  fill: white;
+  background-color: #ff131d;
+  padding: 12px;
+  border-radius: 50%;
+  margin-right: 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+@keyframes rippleEffect {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(255, 19, 29, 0.6);
+  }
+  50% {
+    transform: scale(1.1);
+    box-shadow: 0 0 0 10px rgba(255, 19, 29, 0.3);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(255, 19, 29, 0);
+  }
+}
+
+.call-us svg {
+  animation: rippleEffect 1.5s ease-out infinite;
+}
+
+.call-us-text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
+
+.phone-number-text {
+  font-size: 17px;
+  font-weight: 500;
+}
+.phone-number {
+  font-size: 18px;
+  font-weight: 900;
+}
+
 @media screen and (max-width: 475px) {
   .hero-slide .overlay {
     width: 100%;
@@ -136,7 +233,7 @@
     justify-content: center;
     align-items: center;
     position: absolute;
-    top: 50%;
+    top: 45%;
     left: 50%;
     transform: translate(-50%, -50%);
   }
@@ -162,10 +259,20 @@
     left: 0;
   }
 
+  .btns {
+    top: 0;
+    left: 0;
+  }
+
+  .btns button {
+    padding: 12px 20px;
+    font-size: 14px;
+  }
+
   .hero-slider .prev,
   .hero-slider .next {
     font-size: 20px;
-    bottom: 100px;
+    bottom: 120px;
     padding: 8px;
   }
 
