@@ -1,3 +1,4 @@
+/* Main Container */
 .main-container {
   padding: 70px 100px;
   background-image: url("https://demo2.pavothemes.com/arucafe/wp-content/uploads/2024/05/ab-bg-min-scaled.jpeg");
@@ -6,13 +7,13 @@
   background-position: center center;
   background-attachment: fixed;
   display: flex;
-  justify-content: right; /* Centers the content horizontally */
+  justify-content: right; /* Align the content to the right */
 }
 
 .our-story {
-  width: 50%; /* Adjust this percentage to control the width */
-  max-width: 800px; /* Optional: maximum width for larger screens */
-  text-align: center; /* Aligns the text to the right */
+  width: 50%;
+  max-width: 800px;
+  text-align: left; /* Aligns the text to the left */
 }
 
 h2 {
@@ -21,8 +22,15 @@ h2 {
   line-height: 1.5;
   letter-spacing: 1px;
   text-transform: capitalize;
+  padding-bottom: 20px;
 }
 
+.h2-title {
+  text-align: center;
+  max-width: 50%;
+  word-wrap: break-word;
+  margin: 0 auto;
+}
 p {
   font-size: 16px;
   font-weight: normal;
@@ -31,15 +39,84 @@ p {
 }
 
 .committment-container {
-  padding: 70px 100px;
+  padding: 80px 100px 30px 100px;
 }
 
-.commitment-text{
+/* Commitment Section */
+.commitment-text {
   text-align: center;
 }
 
+/* Factors Section (Cards) */
+.factors-container {
+  padding: 70px 100px;
+}
+
+.custom-row {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap; /* Ensures cards wrap on smaller screens */
+  gap: 20px; /* Adds space between the cards */
+}
+
+.custom-column {
+  flex: 1;
+  min-width: 23%; /* Adjusts the width of each card */
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.custom-card {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  transition: box-shadow 0.3s ease;
+}
+
+.custom-card:hover {
+  box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+.custom-card-icon {
+  margin-bottom: 15px;
+}
+.custom-card-icon svg {
+  width: 50px;
+  height: 50px;
+  color: #ff131d;
+}
+
+.custom-card-title {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.custom-card-description {
+  font-size: 14px;
+  color: #666;
+}
+
+/* Media Queries */
 @media (max-width: 768px) {
-  .main-container, .committment-container {
+  .main-container,
+  .committment-container,
+  .factors-container {
     padding: 20px;
+  }
+
+  .custom-column {
+    min-width: 45%; /* Two cards on medium screens */
+  }
+}
+
+@media (max-width: 480px) {
+  .custom-column {
+    min-width: 100%; /* One card on small screens */
+  }
+  .h2-title {
+    max-width: 100%;
   }
 }
