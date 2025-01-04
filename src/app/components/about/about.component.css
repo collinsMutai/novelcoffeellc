@@ -1,4 +1,3 @@
-/* Main Container */
 .main-container {
   padding: 70px 100px;
   background-image: url("https://demo2.pavothemes.com/arucafe/wp-content/uploads/2024/05/ab-bg-min-scaled.jpeg");
@@ -7,13 +6,17 @@
   background-position: center center;
   background-attachment: fixed;
   display: flex;
-  justify-content: right; /* Align the content to the right */
+  justify-content: right;
 }
 
 .our-story {
   width: 50%;
   max-width: 800px;
-  text-align: left; /* Aligns the text to the left */
+  text-align: left;
+}
+
+.our-story p {
+  text-align: center;
 }
 
 h2 {
@@ -30,7 +33,9 @@ h2 {
   max-width: 50%;
   word-wrap: break-word;
   margin: 0 auto;
+  color: #dc8068;
 }
+
 p {
   font-size: 16px;
   font-weight: normal;
@@ -42,12 +47,10 @@ p {
   padding: 80px 100px 30px 100px;
 }
 
-/* Commitment Section */
 .commitment-text {
   text-align: center;
 }
 
-/* Factors Section (Cards) */
 .factors-container {
   padding: 70px 100px;
 }
@@ -55,13 +58,13 @@ p {
 .custom-row {
   display: flex;
   justify-content: space-between;
-  flex-wrap: wrap; /* Ensures cards wrap on smaller screens */
-  gap: 20px; /* Adds space between the cards */
+  flex-wrap: wrap;
+  gap: 20px;
 }
 
 .custom-column {
   flex: 1;
-  min-width: 23%; /* Adjusts the width of each card */
+  min-width: 23%;
   padding: 10px;
   box-sizing: border-box;
 }
@@ -72,49 +75,203 @@ p {
   border-radius: 10px;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
   text-align: center;
-  transition: box-shadow 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.3s ease;
+  opacity: 0;
+  transform: scale(0.9);
+  animation: fadeInZoom 0.8s forwards;
 }
 
 .custom-card:hover {
-  box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 12px 30px rgba(0, 0, 0, 0.3);
+  transform: scale(1.1) translateY(-10px);
+  background-color: #f8f8f8;
+  cursor: pointer;
 }
 
-.custom-card-icon {
-  margin-bottom: 15px;
-}
 .custom-card-icon svg {
   width: 50px;
   height: 50px;
-  color: #ff131d;
+  color: #dc8068;
 }
 
 .custom-card-title {
   font-size: 20px;
-  font-weight: bold;
+  font-weight: 600;
   margin-bottom: 10px;
 }
 
 .custom-card-description {
-  font-size: 14px;
+  font-size: 16px;
   color: #666;
 }
 
-/* Media Queries */
+@keyframes fadeInZoom {
+  0% {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.flavors .text-slider {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+.slides {
+  display: flex;
+  width: 300%; /* This assumes there are 3 slides. Adjust if you have more */
+  animation: slideText 40s linear infinite;
+}
+
+.slide {
+  width: 100%; /* Each slide takes up 100% of the container */
+  padding: 20px;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.slide-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.slide-text {
+  font-size: 1rem;
+  color: #555;
+}
+
+/* Animation for continuous sliding */
+@keyframes slideText {
+  0% {
+    transform: translateX(0);
+  }
+  33.33% {
+    transform: translateX(-33.33%);
+  }
+  66.66% {
+    transform: translateX(-66.66%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.flavor-card-container {
+  padding: 20px 100px;
+  border-radius: 10px;
+  width: 100%;
+}
+
+.flavor-card {
+  background-color: #372726;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  padding: 40px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.flavor-card:hover {
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+  transform: translateY(-10px);
+}
+
+.cardbody {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.h2-title {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #dc8068;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.flavor-items-inline {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.flavor-item {
+  flex: 1;
+  min-width: 30%;
+  padding: 10px;
+}
+
+.flavor-item svg {
+  height: 35px;
+  width: 35px;
+  color: #dc8068;
+}
+
+.flavor-item-2 {
+  border-left: 1px solid #fff;
+  border-right: 1px solid #fff;
+  padding-left: 30px;
+  padding-right: 30px;
+  box-sizing: border-box;
+}
+
+.flavor-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #fff;
+  margin-bottom: 10px;
+}
+
+.flavor-description {
+  font-size: 1rem;
+  color: #fff;
+}
+
 @media (max-width: 768px) {
   .main-container,
   .committment-container,
-  .factors-container {
+  .factors-container,
+  .flavor-card-container,
+  .why-us-container {
     padding: 20px;
   }
 
   .custom-column {
-    min-width: 45%; /* Two cards on medium screens */
+    min-width: 45%;
+  }
+
+  .flavor-card {
+    flex-direction: row;
+  }
+
+  .flavor-items-inline {
+    flex-direction: column;
+  }
+  .flavor-item-2 {
+    border-left: none;
+    border-right: none;
+    border-top: 1px solid #fff;
+    border-bottom: 1px solid #fff;
+    align-items: start;
+    padding: 30px 10px;
   }
 }
 
 @media (max-width: 480px) {
   .custom-column {
-    min-width: 100%; /* One card on small screens */
+    min-width: 100%;
   }
   .h2-title {
     max-width: 100%;
