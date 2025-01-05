@@ -239,12 +239,113 @@ p {
   color: #fff;
 }
 
+/* Custom Container for the "Why Choose Us" Section */
+.why-choose-us-container {
+  padding: 20px 100px;
+  background-color: #f9f9f9; /* Light background color for the section */
+  padding-top: 50px; /* Add some padding at the top */
+  padding-bottom: 50px; /* Add some padding at the bottom */
+}
+
+.why-choose-us-row {
+  display: flex;
+  justify-content: center; /* Center the columns horizontally */
+  align-items: top; /* Center the columns vertically (if needed) */
+  margin: 0;
+  gap: 40px; /* Reduced gap between the columns */
+}
+
+/* Custom Column Layout for "Why Choose Us" */
+.why-choose-us-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease;
+  width: 100%;
+  max-width: 450px;
+}
+
+.why-choose-us-img {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  transition: transform 0.3s ease-in-out;
+}
+
+.why-choose-us-title {
+  font-size: 24px;
+  font-weight: 600;
+  color: #333333;
+  margin-bottom: 10px;
+}
+
+.why-choose-us-description {
+  font-size: 16px;
+  color: #000;
+  line-height: 1.6;
+}
+
+.animated-column {
+  opacity: 0;
+  animation: fadeInUp 1s forwards;
+}
+
+.animated-column:nth-child(1) {
+  animation-delay: 0.2s;
+}
+
+.animated-column:nth-child(2) {
+  animation-delay: 0.4s;
+}
+
+.animated-column:nth-child(3) {
+  animation-delay: 0.6s;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.why-choose-us-column:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+}
+
+.why-choose-us-column:hover .why-choose-us-img {
+  transform: scale(1.1);
+}
+
+.why-choose-us-column:hover .why-choose-us-title {
+  color: #dc8068;
+}
+
+.why-choose-us-column:hover .why-choose-us-description {
+  color: #333333;
+  font-weight: bold;
+  transition: color 0.3s ease, font-weight 0.3s ease;
+}
+
 @media (max-width: 768px) {
   .main-container,
   .committment-container,
   .factors-container,
   .flavor-card-container,
-  .why-us-container {
+  .why-us-container,
+  .why-choose-us-container {
     padding: 20px;
   }
 
@@ -266,6 +367,17 @@ p {
     border-bottom: 1px solid #fff;
     align-items: start;
     padding: 30px 10px;
+  }
+
+  .why-choose-us-row {
+    flex-direction: column;
+    justify-content: center; /* Ensure the columns are centered */
+  }
+
+  .why-choose-us-column {
+    width: 100%; /* Full width for each column */
+    max-width: none; /* Remove the max-width for mobile */
+    margin-bottom: 20px; /* Space between stacked columns */
   }
 }
 
