@@ -28,4 +28,6 @@ export class AboutComponent {
       console.log(this.contactForm.value); // Log the form data to the console
     }
   }
+
+  
 }

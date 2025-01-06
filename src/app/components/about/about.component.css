@@ -239,23 +239,20 @@ p {
   color: #fff;
 }
 
-/* Custom Container for the "Why Choose Us" Section */
 .why-choose-us-container {
   padding: 20px 100px;
-  background-color: #f9f9f9; /* Light background color for the section */
-  padding-top: 50px; /* Add some padding at the top */
-  padding-bottom: 50px; /* Add some padding at the bottom */
+  background-color: #f9f9f9;
+  padding-top: 50px;
+  padding-bottom: 50px;
 }
 
 .why-choose-us-row {
   display: flex;
-  justify-content: center; /* Center the columns horizontally */
-  align-items: top; /* Center the columns vertically (if needed) */
+  justify-content: center;
+  align-items: top;
   margin: 0;
-  gap: 40px; /* Reduced gap between the columns */
+  gap: 40px;
 }
-
-/* Custom Column Layout for "Why Choose Us" */
 .why-choose-us-column {
   display: flex;
   flex-direction: column;
@@ -341,6 +338,7 @@ p {
 
 .contact-container {
   padding: 20px 100px;
+  transition: all 0.3s ease-in-out;
 }
 
 .contact-row {
@@ -397,12 +395,13 @@ p {
   justify-content: space-between;
   width: 100%;
   margin-top: 20px;
-  flex: 1 1 55%; /* Take the remaining 55% of space */
+  flex: 1 1 55%;
 }
 
 .contact-form {
   padding-left: 20px;
-  width: 50%; /* Adjust form width */
+  width: 50%;
+  animation: slideIn 1s ease-out;
 }
 
 .contact-map {
@@ -421,12 +420,26 @@ p {
   padding: 12px;
   border: 2px solid #ccc;
   border-radius: 5px;
+  font-size: 16px;
+  transition: all 0.3s ease-in-out;
 }
 
 .contact-form input:focus,
 .contact-form textarea:focus {
   border-color: #dc8068;
   box-shadow: 0 0 8px rgba(220, 128, 104, 0.5);
+  transform: scale(1.02);
+}
+
+.contact-form input::placeholder,
+.contact-form textarea::placeholder {
+  opacity: 0.7;
+  transition: opacity 0.3s ease;
+}
+
+.contact-form input:focus::placeholder,
+.contact-form textarea:focus::placeholder {
+  opacity: 0.5;
 }
 
 .contact-form .submit-btn {
@@ -437,6 +450,49 @@ p {
   cursor: pointer;
   font-size: 16px;
   font-weight: 600;
+  transition: all 0.3s ease-in-out;
+  border-radius: 5px;
+}
+
+.contact-form .submit-btn:hover {
+  background-color: #c56d56;
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(220, 128, 104, 0.4);
+}
+
+.contact-form .submit-btn:active {
+  transform: translateY(2px);
+  box-shadow: none;
+}
+
+.contact-form input:hover,
+.contact-form textarea:hover {
+  border-color: #dc8068;
+  transform: scale(1.02);
+}
+
+@keyframes inputFocusAnimation {
+  0% {
+    border-color: #ccc;
+  }
+  50% {
+    border-color: #dc8068;
+  }
+  100% {
+    border-color: #dc8068;
+  }
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+  animation: inputFocusAnimation 0.5s ease-in-out;
+}
+
+.contact-form-title {
+  font-size: 24px;
+  font-weight: 600;
+  color: #333333;
+  margin-bottom: 10px;
 }
 
 .text-danger {
@@ -444,12 +500,29 @@ p {
   color: #dc8068;
 }
 
-.contact-form-title{
- font-size: 24px;
-  font-weight: 600;
-  color: #333333;
-  margin-bottom: 10px;
+.contact-map iframe {
+  transition: transform 0.3s ease-in-out;
 }
+
+.contact-map iframe:hover {
+  transform: scale(1.05);
+}
+
+@keyframes slideIn {
+  0% {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.footer-container {
+  padding: 20px 100px;
+}
+
 
 @media (max-width: 768px) {
   .main-container,
@@ -458,7 +531,8 @@ p {
   .flavor-card-container,
   .why-us-container,
   .why-choose-us-container,
-  .contact-container {
+  .contact-container,
+  .footer-container {
     padding: 20px;
   }
 
@@ -527,6 +601,12 @@ p {
   .contact-item svg {
     height: 25px;
     width: 25px;
+  }
+
+  .contact-map iframe {
+    width: 100%; /* Ensure iframe takes full width of its container */
+    height: 100%; /* Ensure iframe height adjusts to the container */
+    border: 0;
   }
 }
 
