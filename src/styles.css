@@ -15,3 +15,11 @@ h2,
 h3 {
   font-family: "DM Sans", serif;
 }
+
+p{
+  font-family: "Outfit", serif;
+  font-size: 16px;
+  font-weight: normal;
+  line-height: 1.5;
+  letter-spacing: 1px;
+}
