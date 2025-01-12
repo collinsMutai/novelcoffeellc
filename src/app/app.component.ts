@@ -14,13 +14,11 @@ export class AppComponent {
   title = 'Novel Coffee LLC';
   showScroll = false;
 
-  // Listen to the window scroll event and toggle the visibility of the button
   @HostListener('window:scroll', [])
   onWindowScroll(): void {
-    this.showScroll = window.scrollY > 200; // Button becomes visible after scrolling 200px
+    this.showScroll = window.scrollY > 200;
   }
 
-  // Scroll to the top of the page
   scrollToTop(): void {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }

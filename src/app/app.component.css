@@ -1,9 +1,8 @@
-/* Back to Top Button */
 .back-to-top {
   position: fixed;
   bottom: 30px;
   right: 30px;
-  background-color: #DC8068;
+  background-color: #dc8068;
   color: white;
   border: none;
   padding: 10px;
@@ -17,22 +16,19 @@
 }
 
 .back-to-top svg {
-  width: 20px; /* Adjust the size of the Chevron */
-  height: 20px; /* Adjust the size of the Chevron */
+  width: 20px;
+  height: 20px;
 }
 
-/* When scrolled down, the button will appear */
 .back-to-top.show {
   opacity: 1;
   visibility: visible;
 }
 
-/* Hover Effect */
 .back-to-top:hover {
-  background-color: #C56E56;
+  background-color: #c56e56;
 }
 
-/* Animation for button */
 @keyframes fadeIn {
   0% {
     opacity: 0;
@@ -43,7 +39,6 @@
 }
 
 @media (max-width: 768px) {
-  /* Adjust button for smaller screens */
   .back-to-top {
     bottom: 20px;
     right: 20px;

@@ -11,22 +11,22 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 export class HeroSliderComponent implements OnInit, OnDestroy {
   slides = [
     {
-      image: 'images/slider1.jpg',
+      image: 'assets/images/slider5.jpeg',
       title: 'Novel Coffee',
       caption: 'Brewing a better future',
     },
     {
-      image: 'images/slider2.png',
+      image: 'assets/images/slider7.jpeg',
       title: 'Novel Coffee',
       caption: 'Brewing a better future',
     },
     {
-      image: 'images/slider3.jpg',
+      image: 'assets/images/slider8.jpeg',
       title: 'Novel Coffee',
       caption: 'Brewing a better future',
     },
     {
-      image: 'images/slider4.jpg',
+      image: 'assets/images/slider4.jpg',
       title: 'Novel Coffee',
       caption: 'Brewing a better future',
     },
