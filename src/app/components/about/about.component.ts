@@ -56,31 +56,36 @@ export class AboutComponent implements OnInit {
     this.isSubmitting = true;
 
     const formData = this.contactForm.value;
-    const message = `
-      Name: ${formData.name}
-      Email: ${formData.email}
-      Phone: ${formData.phone}
-      Message: ${formData.message}
-    `;
 
     try {
-      const response = await this.http
-        .post('https://api.emailjs.com/api/v1.0/email/send', {
-          service_id: this.serviceID,
-          template_id: this.templateID,
-          user_id: this.userID,
-          template_params: {
-            from_name: formData.name,
-            from_email: formData.email,
-            from_phone: formData.phone,
-            message: formData.message,
+      const response: any = await this.http
+        .post(
+          'https://api.emailjs.com/api/v1.0/email/send',
+          {
+            service_id: this.serviceID,
+            template_id: this.templateID,
+            user_id: this.userID,
+            template_params: {
+              from_name: formData.name,
+              from_email: formData.email,
+              from_phone: formData.phone,
+              message: formData.message,
+            },
           },
-        })
+          { responseType: 'text' }
+        ) // Set responseType to 'text'
         .toPromise();
 
-      console.log('Email sent successfully', response);
-      alert('Message sent successfully!');
-      this.contactForm.reset();
+      console.log('Raw response from EmailJS:', response);
+
+      // Here you can check the response as a string and handle accordingly
+      if (response.includes('OK')) {
+        alert('Message sent successfully!');
+        this.contactForm.reset();
+      } else {
+        console.error('EmailJS Error:', response);
+        alert('Failed to send message. Please try again later.');
+      }
     } catch (error) {
       console.error('Error sending email:', error);
       alert('Failed to send message. Please try again later.');
