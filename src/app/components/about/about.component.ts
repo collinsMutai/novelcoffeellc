@@ -8,11 +8,18 @@ import {
 } from '@angular/forms';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environments';
+import { RecaptchaModule } from 'ng-recaptcha';
+
 
 @Component({
   selector: 'app-about',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, HttpClientModule],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    RecaptchaModule,
+  ],
   templateUrl: './about.component.html',
   styleUrls: ['./about.component.css'],
 })
@@ -20,6 +27,9 @@ export class AboutComponent implements OnInit {
   contactForm: FormGroup;
   currentYear!: number;
   isSubmitting = false;
+  siteKey: string = environment.recaptchaSiteKey;
+  recaptchaToken: string | null = null;
+  recaptchaFailed = false;
 
   userID: string = environment.emailJs.userID;
   serviceID: string = environment.emailJs.serviceID;
@@ -39,16 +49,10 @@ export class AboutComponent implements OnInit {
   }
 
   async onSubmit(): Promise<void> {
-    if (this.contactForm.invalid) {
+    if (this.contactForm.invalid || !this.recaptchaToken) {
       console.log('Form Invalid');
-
-      Object.keys(this.contactForm.controls).forEach((field) => {
-        const control = this.contactForm.get(field);
-        if (control && control.invalid) {
-          console.log(`${field} is invalid:`, control.errors);
-        }
-      });
-      alert('Please fill all the required fields.');
+      this.recaptchaFailed = !this.recaptchaToken; // Show recaptcha failure message if the token is missing
+      alert('Please fill all the required fields and verify the reCAPTCHA.');
       return;
     }
 
@@ -73,12 +77,11 @@ export class AboutComponent implements OnInit {
             },
           },
           { responseType: 'text' }
-        ) // Set responseType to 'text'
+        )
         .toPromise();
 
       console.log('Raw response from EmailJS:', response);
 
-      // Here you can check the response as a string and handle accordingly
       if (response.includes('OK')) {
         alert('Message sent successfully!');
         this.contactForm.reset();
@@ -97,5 +100,10 @@ export class AboutComponent implements OnInit {
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
     }
+  }
+
+  resolved(captchaResponse: any) {
+    this.recaptchaToken = captchaResponse;
+    this.recaptchaFailed = false;
   }
 }
