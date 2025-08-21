@@ -1,5 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ViewChild,
+  ElementRef,
+  AfterViewInit,
+} from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -7,9 +13,10 @@ import {
   Validators,
 } from '@angular/forms';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
-import { environment } from '../../../environments/environments';
-import { RecaptchaModule } from 'ng-recaptcha';
+import { environment } from '../../../environments/environment';
+import { ReCaptchaV3Service, RecaptchaV3Module } from 'ng-recaptcha';
 
+declare const bootstrap: any;
 
 @Component({
   selector: 'app-about',
@@ -18,24 +25,32 @@ import { RecaptchaModule } from 'ng-recaptcha';
     CommonModule,
     ReactiveFormsModule,
     HttpClientModule,
-    RecaptchaModule,
+    RecaptchaV3Module,
   ],
   templateUrl: './about.component.html',
   styleUrls: ['./about.component.css'],
 })
-export class AboutComponent implements OnInit {
+export class AboutComponent implements OnInit, AfterViewInit {
   contactForm: FormGroup;
   currentYear!: number;
   isSubmitting = false;
   siteKey: string = environment.recaptchaSiteKey;
   recaptchaToken: string | null = null;
-  recaptchaFailed = false;
 
-  userID: string = environment.emailJs.userID;
-  serviceID: string = environment.emailJs.serviceID;
-  templateID: string = environment.emailJs.templateID;
+  userID: string = environment.emailjs.userId;
+  serviceID: string = environment.emailjs.serviceId;
+  templateID: string = environment.emailjs.templateId;
 
-  constructor(private fb: FormBuilder, private http: HttpClient) {
+  toastMessage: string = '';
+  toastClass: string = 'bg-success text-white';
+
+  @ViewChild('toastEl', { static: false }) toastEl!: ElementRef;
+
+  constructor(
+    private fb: FormBuilder,
+    private http: HttpClient,
+    private recaptchaV3Service: ReCaptchaV3Service
+  ) {
     this.contactForm = this.fb.group({
       name: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
@@ -48,50 +63,79 @@ export class AboutComponent implements OnInit {
     this.currentYear = new Date().getFullYear();
   }
 
-  async onSubmit(): Promise<void> {
-    if (this.contactForm.invalid || !this.recaptchaToken) {
-      console.log('Form Invalid');
-      this.recaptchaFailed = !this.recaptchaToken; // Show recaptcha failure message if the token is missing
-      alert('Please fill all the required fields and verify the reCAPTCHA.');
+  ngAfterViewInit(): void {}
+
+  onSubmit(): void {
+    if (this.contactForm.invalid) {
+      this.contactForm.markAllAsTouched();
+      this.showToast('Please fill all the required fields.', false);
       return;
     }
 
-    console.log('Form Submitted:', this.contactForm.value);
     this.isSubmitting = true;
 
-    const formData = this.contactForm.value;
+    this.recaptchaV3Service.execute('about_form').subscribe({
+      next: (token: string) => {
+        this.recaptchaToken = token;
+        this.sendEmail(this.contactForm.value);
+      },
+      error: (err) => {
+        console.error('reCAPTCHA error', err);
+        this.showToast('reCAPTCHA verification failed.', false);
+        this.isSubmitting = false;
+      },
+    });
+  }
 
-    try {
-      const response: any = await this.http
-        .post(
-          'https://api.emailjs.com/api/v1.0/email/send',
-          {
-            service_id: this.serviceID,
-            template_id: this.templateID,
-            user_id: this.userID,
-            template_params: {
-              from_name: formData.name,
-              from_email: formData.email,
-              from_phone: formData.phone,
-              message: formData.message,
-            },
-          },
-          { responseType: 'text' }
-        )
-        .toPromise();
+  sendEmail(formData: any): void {
+    const emailData = {
+      service_id: this.serviceID,
+      template_id: this.templateID,
+      user_id: this.userID,
+      template_params: {
+        from_name: formData.name,
+        from_email: formData.email,
+        from_phone: formData.phone,
+        message: formData.message,
+        'g-recaptcha-response': this.recaptchaToken, // Pass v3 token to EmailJS
+      },
+    };
 
-      console.log('Raw response from EmailJS:', response);
+    this.http
+      .post('https://api.emailjs.com/api/v1.0/email/send', emailData, {
+        responseType: 'text',
+      })
+      .subscribe(
+        (response) => {
+          this.isSubmitting = false;
 
-      if (response.includes('OK')) {
-        alert('Message sent successfully!');
-        this.contactForm.reset();
-      } else {
-        console.error('EmailJS Error:', response);
-        alert('Failed to send message. Please try again later.');
-      }
-    } catch (error) {
-      console.error('Error sending email:', error);
-      alert('Failed to send message. Please try again later.');
+          if (response.includes('OK')) {
+            this.showToast('Message sent successfully!', true);
+            this.contactForm.reset();
+            this.recaptchaToken = null;
+          } else {
+            console.error('EmailJS Error:', response);
+            this.showToast('Failed to send message. Please try again later.', false);
+          }
+        },
+        (error) => {
+          console.error('Error sending email:', error);
+          this.showToast('Failed to send message. Please try again later.', false);
+          this.isSubmitting = false;
+        }
+      );
+  }
+
+  showToast(message: string, isSuccess: boolean = true): void {
+    this.toastMessage = message;
+    this.toastClass = isSuccess
+      ? 'bg-success text-white'
+      : 'bg-danger text-white';
+
+    const toastElement = this.toastEl?.nativeElement;
+    if (toastElement) {
+      const toast = new bootstrap.Toast(toastElement);
+      toast.show();
     }
   }
 
@@ -100,10 +144,5 @@ export class AboutComponent implements OnInit {
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
     }
-  }
-
-  resolved(captchaResponse: any) {
-    this.recaptchaToken = captchaResponse;
-    this.recaptchaFailed = false;
   }
 }
